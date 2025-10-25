@@ -1,0 +1,15 @@
+*.cof
+*.sdb
+*.sym
+*.obj
+*.lst
+*.rlf
+*.lde
+*.cce
+*.cod
+*.dep
+*.p1
+*.d
+*.pre
+*.log
+build/
