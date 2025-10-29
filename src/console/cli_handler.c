@@ -36,20 +36,24 @@ static bool cli_printf(response_cb write_handler, const char *fmt, ...)
     return true;
 }
 
-static bool compare_command(register const char *str, char *p_command_buf, uint32_t length)
+static bool compare_command(const char *str, char *command, uint32_t length)
 {
-    int position = 0;
+    int pos = 0;
 
-    while ((*str) != 0 && position < length)
+     if (length == 0 || !str || !command)
+     {
+        return false;
+     }
+
+    while (str[pos] != '\0' && pos < length)
     {
-        if ((*str) != *(p_command_buf + position))
+        if (str[pos] != command[pos])
         {
             return false;
         }
-        position++;
-        str++;
+        pos++;
     }
-    return true;
+    return (str[pos] == '\0');
 }
 
 static void color_handle_result(response_cb write_handler, char *color_text, uint32_t length_color, enum led_color color)
@@ -72,7 +76,7 @@ int cli_handler_process_command(char *command, uint32_t length, response_cb writ
         print_help_message(write_handler);
         return 1;
     }
-    
+
     if (compare_command("led ", command, length))
     {
         char *color_text = command + 4;
