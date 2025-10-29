@@ -6,8 +6,11 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DEFAULT);
 int main(void)
 {
 
-    LOG_INF("ESP32 Demo");
-    uart_console_start();
+    int ret = uart_console_start();
+    if (ret != 0) {
+        LOG_ERR("Failed to start UART console: %d", ret);
+        return ret;
+    }
 
     while (1)
     {

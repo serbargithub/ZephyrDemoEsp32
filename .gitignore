@@ -13,3 +13,4 @@
 *.pre
 *.log
 build/
+.idea/

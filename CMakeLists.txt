@@ -22,3 +22,4 @@ set(APP_SOURCES
 )
 
 target_sources(app PRIVATE ${APP_SOURCES})
+
