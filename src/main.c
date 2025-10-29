@@ -1,32 +1,20 @@
-#include "led_color.h"
-#include "logger.h"
+#include "uart_console.h"
+
+#include "log/logger.h"
 LOG_MODULE_REGISTER(main, LOG_LEVEL_DEFAULT);
-
-//#include <zephyr/kernel.h>
-//#include <zephyr/device.h>
-//#include <zephyr/drivers/spi.h>
-//#include <zephyr/sys/util.h>
-
-
-#define DELAY_TIME K_MSEC(200)
 
 int main(void)
 {
 
+    LOG_INF("ESP32 Demo");
+    uart_console_start();
 
-	LOG_INF("Displaying led colors in a loop");
-	while (1) {
-		for (enum led_color current_color = 0; current_color < sizeof(enum led_color); current_color++) {
-			int rc = led_color_set_color(current_color);
-			if (rc < 0) {
-				LOG_ERR("couldn't set color %d: %d", current_color, rc);
-				return rc;
-			}
+    while (1)
+    {
+        uart_console_task_handler();
+        k_sleep(K_MSEC(10));
+    }
 
-			k_sleep(DELAY_TIME);
-		}
 
-	}
-
-	return 0;
+    return 0;
 }

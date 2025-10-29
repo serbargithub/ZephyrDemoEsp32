@@ -34,6 +34,13 @@
 			pinmux = <SPIM2_MOSI_GPIO8>;
 		};
 	};
+
+    uart0_default: uart0_default {
+        group1 {
+            pinmux = <UART0_TX_GPIO21>,
+                     <UART0_RX_GPIO20>;
+        };
+    };
 };
 
 / {
@@ -41,3 +48,11 @@
 		led-strip = &led_strip;
 	};
 };
+
+&uart0 {
+    status = "okay";
+    current-speed = <115200>;
+    pinctrl-0 = <&uart0_default>;
+    pinctrl-names = "default";
+};
+

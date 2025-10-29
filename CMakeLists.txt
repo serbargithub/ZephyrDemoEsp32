@@ -8,13 +8,17 @@ project(esp32_led_strip)
 include_directories( 
         ${CMAKE_CURRENT_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}/src/utils  
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/console  
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/drivers 
 )
 
 # target_sources(app PRIVATE src/main.c)
 # FILE(GLOB app_sources src/*.c)
 set(APP_SOURCES 
     src/main.c
-    src/utils/led_color.c
+    src/drivers/led_color.c
+    src/console/uart_console.c
+    src/console/cli_handler.c
 )
 
 target_sources(app PRIVATE ${APP_SOURCES})

@@ -1,8 +1,7 @@
 #include "led_color.h"
 #include <zephyr/drivers/led_strip.h>
-#include "logger.h"
+#include "../log/logger.h"
 LOG_MODULE_REGISTER(led_color, LOG_LEVEL_DEFAULT);
-
 
 #define STRIP_NODE DT_ALIAS(led_strip)
 #define CONFIG_LED_BRIGHTNESS 64
@@ -18,7 +17,6 @@ static const struct led_rgb colors[] = {
 	RGB(0x00, 0x00, CONFIG_LED_BRIGHTNESS), /* blue */
 	RGB(0x00, 0x00, 0x00),					/* off */
 };
-
 
 static bool is_led_strip_ready(void)
 {
