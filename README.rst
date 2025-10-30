@@ -1,5 +1,5 @@
 
-# ESP32-C3 WS2812 LED Strip Demo (Zephyr)
+## ESP32-C3 WS2812 LED Strip Demo (Zephyr)
 
 Short description
 -----------------
@@ -8,7 +8,8 @@ Provides a UART console (TTY) with a minimal CLI to set LED colors and has a sma
 
 Features
 --------
-- WS2812 LED strip support via devicetree node (label `LED_STRIP0`)
+- WS2812 LED strip support via devicetree node and Zephyr LED strip API
+- CLI over UART console for setting LED colors and turning off
 - UART console with line editing and history
 - Safe printf helper for CLI responses
 - Fallback behavior available if the LED strip device is not present
@@ -41,7 +42,7 @@ From project root:
     # flash (if supported)
     west flash
 
-LI usage
+CLI usage
 ---------
 Connect to serial (115200). Example commands:
 
