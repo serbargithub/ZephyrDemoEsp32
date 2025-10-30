@@ -1,5 +1,6 @@
 
-## ESP32-C3 WS2812 LED Strip Demo (Zephyr)
+ESP32-C3 WS2812 LED Strip Demo (Zephyr)
+=====================================
 
 Short description
 -----------------
