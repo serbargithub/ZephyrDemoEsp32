@@ -3,7 +3,6 @@
 
 #include <zephyr/kernel.h>
 #include "uart_console_thread.h"
-//#include "led_driver.h"
 
 
 /* --- Threads configuration --- */

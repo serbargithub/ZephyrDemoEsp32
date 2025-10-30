@@ -5,7 +5,7 @@
 #include "uart_console.h"
 
 #include "../log/logger.h"
-LOG_MODULE_REGISTER(uart_console, LOG_LEVEL_DEFAULT);
+LOG_MODULE_REGISTER(uart_console);
 
 #define UART_NODE DT_NODELABEL(uart0)
 static const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);
@@ -54,7 +54,6 @@ static void add_to_history(const char *line)
 
 static void show_line(const char *line)
 {
-    /* clear current input line visually */
     const char *clear_seq = "\r\033[K"; // CR + clear to end of line
     tty_write(&tty, clear_seq, strlen(clear_seq));
     tty_write(&tty, line, strlen(line));

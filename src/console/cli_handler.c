@@ -7,7 +7,7 @@
 #include "../drivers/led_color.h"
 
 #include "../log/logger.h"
-LOG_MODULE_REGISTER(cli_handler, LOG_LEVEL_DEFAULT);
+LOG_MODULE_REGISTER(cli_handler);
 
 #define PRINT_STRING_MAX 128
 

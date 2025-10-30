@@ -3,7 +3,7 @@
 #include <zephyr/drivers/led_strip.h>
 
 #include "../log/logger.h"
-LOG_MODULE_REGISTER(led_color, LOG_LEVEL_DEFAULT);
+LOG_MODULE_REGISTER(led_color);
 
 #define STRIP_NODE DT_ALIAS(led_strip)
 #define CONFIG_LED_BRIGHTNESS 64
@@ -11,7 +11,8 @@ LOG_MODULE_REGISTER(led_color, LOG_LEVEL_DEFAULT);
 static struct led_rgb pixel;
 static const struct device *const strip = DEVICE_DT_GET(STRIP_NODE);
 
-static struct k_mutex led_rgb_mutex;
+//static struct k_mutex led_rgb_mutex;
+K_MUTEX_DEFINE(led_rgb_mutex);
 static volatile bool is_blink_indicator_allowed = false;
 
 #define RGB(_r, _g, _b) {.r = (_r), .g = (_g), .b = (_b)}
@@ -23,24 +24,13 @@ static const struct led_rgb colors[] = {
 	RGB(0x00, 0x00, 0x00),					/* off */
 };
 
-static bool is_led_strip_ready(void)
-{
-	if (device_is_ready(strip))
-	{
-		return true;
-	}
-	else
-	{
-		LOG_ERR("LED strip device %s is not ready", strip->name);
-		return false;
-	}
-}
 
 int led_color_set_color(enum led_color color)
 {
-	if (is_led_strip_ready() == false)
+	if (device_is_ready(strip) == false)
 	{
-		return 0;
+		LOG_ERR("Led strip not ready");
+		return -ENODEV;
 	}
 	k_mutex_lock(&led_rgb_mutex, K_FOREVER);
 	pixel = colors[color];
@@ -56,9 +46,10 @@ int led_color_set_color(enum led_color color)
 
 int led_color_set_rgb(uint8_t r, uint8_t g, uint8_t b)
 {
-	if (is_led_strip_ready() == false)
+	if (device_is_ready(strip) == false)
 	{
-		return 0;
+		LOG_ERR("Led strip not ready");
+		return -ENODEV;
 	}
 	k_mutex_lock(&led_rgb_mutex, K_FOREVER);
 	pixel.r = r;
@@ -76,10 +67,14 @@ int led_color_set_rgb(uint8_t r, uint8_t g, uint8_t b)
 
 int led_color_blink_indicator(enum led_blink state)
 {
-	if ((is_blink_indicator_allowed == false) || 
-		(is_led_strip_ready() == false))
+	if (device_is_ready(strip) == false)
 	{
-		return 0;
+		LOG_ERR("Led strip not ready");
+		return -ENODEV;
+	}
+	if (is_blink_indicator_allowed == false)
+	{
+		return -EACCES;
 	}
 
 	k_mutex_lock(&led_rgb_mutex, K_FOREVER);

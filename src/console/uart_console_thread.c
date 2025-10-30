@@ -2,7 +2,7 @@
 #include "uart_console.h"
 
 #include "../log/logger.h"
-LOG_MODULE_REGISTER(uart_console_thread, LOG_LEVEL_DEFAULT);
+LOG_MODULE_REGISTER(uart_console_thread);
 
 
 void uart_console_thread_fn(void *p1, void *p2, void *p3)
