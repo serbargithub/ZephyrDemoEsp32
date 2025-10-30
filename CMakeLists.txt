@@ -7,7 +7,7 @@ project(esp32_led_strip)
 # Include header files
 include_directories( 
         ${CMAKE_CURRENT_SOURCE_DIR}/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/utils  
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/log
         ${CMAKE_CURRENT_SOURCE_DIR}/src/console  
         ${CMAKE_CURRENT_SOURCE_DIR}/src/drivers 
 )
@@ -19,6 +19,7 @@ set(APP_SOURCES
     src/drivers/led_color.c
     src/console/uart_console.c
     src/console/cli_handler.c
+    src/console/uart_console_thread.c
 )
 
 target_sources(app PRIVATE ${APP_SOURCES})

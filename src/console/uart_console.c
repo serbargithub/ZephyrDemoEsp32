@@ -1,4 +1,3 @@
-#include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/devicetree.h>
 #include <zephyr/console/tty.h>
@@ -34,7 +33,7 @@ static char esc_buf[3];
 static int esc_pos = 0;
 
 
-void write_handler(char *data, uint32_t length)
+static void write_handler(char *data, uint32_t length)
 {
     tty_write(&tty, data, length);
 }
@@ -58,8 +57,6 @@ static void show_line(const char *line)
     /* clear current input line visually */
     const char *clear_seq = "\r\033[K"; // CR + clear to end of line
     tty_write(&tty, clear_seq, strlen(clear_seq));
-
-    /* print prompt and the line */
     tty_write(&tty, line, strlen(line));
 }
 
@@ -187,8 +184,3 @@ void uart_console_task_handler(void)
     }
 }
 
-void uart_console_stop(void)
-{
-    //tty_cleanup(&tty);
-    LOG_INF("UART console stopped");
-}

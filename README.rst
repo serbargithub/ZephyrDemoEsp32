@@ -1,94 +1,50 @@
 
-   Blink a color LED  using the GPIO API via UART console.
+# ESP32-C3 WS2812 LED Strip Demo (Zephyr)
 
-Overview
-********
+Short description
+-----------------
+Simple Zephyr demo that drives a WS2812 LED strip on an ESP32-C3 DevKitM.  
+Provides a UART console (TTY) with a minimal CLI to set LED colors and has a small input history (arrow-up/arrow-down).
 
-The Blinky sample blinks an LED forever using the :ref:`GPIO API <gpio_api>`.
+Features
+--------
+- WS2812 LED strip support via devicetree node (label `LED_STRIP0`)
+- UART console with line editing and history
+- Safe printf helper for CLI responses
+- Fallback behavior available if the LED strip device is not present
+- Concurrency protection for LED operations (Zephyr mutexes)
 
-The source code shows how to:
-
-#. Get a pin specification from the :ref:`devicetree <dt-guide>` as a
-   :c:struct:`gpio_dt_spec`
-#. Configure the GPIO pin as an output
-#. Toggle the pin forever
-
-See :zephyr:code-sample:`pwm-blinky` for a similar sample that uses the PWM API instead.
-
-.. _blinky-sample-requirements:
 
 Requirements
-************
+------------
+- Zephyr SDK and west installed and configured
+- Board: esp32c3_devkitm (target used in examples)
 
-Your board must:
+Files of interest
+-----------------
+- boards/esp32c3_devkitm.overlay — device tree overlay for the LED strip & console pinctrl
+- prj.conf — Kconfig for project features (console, logging, LED strip base)
+- src/main.c — application entry
+- src/drivers/led_color.c — LED helper/driver for setting colors and blinking
+- src/console/* — UART console, CLI and command processing
 
-#. Have an LED connected via a GPIO pin (these are called "User LEDs" on many of
-   Zephyr's :ref:`boards`).
-#. Have the LED configured using the ``led0`` devicetree alias.
+Quick start
+-----------
+From project root:
 
-Building and Running
-********************
+.. code-block:: bash
 
-Build and flash Blinky as follows, changing ``reel_board`` for your board:
+    # clean and build
+    rm -rf build
+    west build -b esp32c3_devkitm -p always
 
-.. zephyr-app-commands::
-   :zephyr-app: samples/basic/blinky
-   :board: reel_board
-   :goals: build flash
-   :compact:
+    # flash (if supported)
+    west flash
 
-After flashing, the LED starts to blink and messages with the current LED state
-are printed on the console. If a runtime error occurs, the sample exits without
-printing to the console.
+LI usage
+---------
+Connect to serial (115200). Example commands:
 
-Build errors
-************
+- ``help`` — show help
+- ``led red`` / ``led green`` / ``led blue`` / ``led white`` / ``led off``
 
-You will see a build error at the source code line defining the ``struct
-gpio_dt_spec led`` variable if you try to build Blinky for an unsupported
-board.
-
-On GCC-based toolchains, the error looks like this:
-
-.. code-block:: none
-
-   error: '__device_dts_ord_DT_N_ALIAS_led_P_gpios_IDX_0_PH_ORD' undeclared here (not in a function)
-
-Adding board support
-********************
-
-To add support for your board, add something like this to your devicetree:
-
-.. code-block:: DTS
-
-   / {
-   	aliases {
-   		led0 = &myled0;
-   	};
-
-   	leds {
-   		compatible = "gpio-leds";
-   		myled0: led_0 {
-   			gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
-                };
-   	};
-   };
-
-The above sets your board's ``led0`` alias to use pin 13 on GPIO controller
-``gpio0``. The pin flags :c:macro:`GPIO_ACTIVE_HIGH` mean the LED is on when
-the pin is set to its high state, and off when the pin is in its low state.
-
-Tips:
-
-- See :dtcompatible:`gpio-leds` for more information on defining GPIO-based LEDs
-  in devicetree.
-
-- If you're not sure what to do, check the devicetrees for supported boards which
-  use the same SoC as your target. See :ref:`get-devicetree-outputs` for details.
-
-- See :zephyr_file:`include/zephyr/dt-bindings/gpio/gpio.h` for the flags you can use
-  in devicetree.
-
-- If the LED is built in to your board hardware, the alias should be defined in
-  your :ref:`BOARD.dts file <devicetree-in-out-files>`. Otherwise, you can
-  define one in a :ref:`devicetree overlay <set-devicetree-overlays>`.

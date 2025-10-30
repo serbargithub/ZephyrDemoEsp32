@@ -36,24 +36,22 @@ static bool cli_printf(response_cb write_handler, const char *fmt, ...)
     return true;
 }
 
-static bool compare_command(const char *str, char *command, uint32_t length)
+static bool starts_with(const char *prefix, const char *command, size_t cmd_len)
 {
-    int pos = 0;
-
-     if (length == 0 || !str || !command)
-     {
+    size_t p_len = strlen(prefix);
+    if (p_len > cmd_len) {
         return false;
-     }
-
-    while (str[pos] != '\0' && pos < length)
-    {
-        if (str[pos] != command[pos])
-        {
-            return false;
-        }
-        pos++;
     }
-    return (str[pos] == '\0');
+    return (strncmp(command, prefix, p_len) == 0);
+}
+
+static bool equals_to(const char *str, const char *command, size_t cmd_len)
+{
+    size_t s_len = strlen(str);
+    if (s_len != cmd_len) {
+        return false;
+    }
+    return (strncmp(command, str, s_len) == 0);
 }
 
 static void color_handle_result(response_cb write_handler, char *color_text, uint32_t length_color, enum led_color color)
@@ -71,33 +69,34 @@ static void color_handle_result(response_cb write_handler, char *color_text, uin
 
 int cli_handler_process_command(char *command, uint32_t length, response_cb write_handler)
 {
-    if (compare_command("help", command, length))
+    if (equals_to("help", command, length))
     {
         print_help_message(write_handler);
         return 1;
     }
 
-    if (compare_command("led ", command, length))
+    if (starts_with("led ", command, length))
     {
-        char *color_text = command + 4;
-        uint32_t length_color = length - 4;
-        if (compare_command("red", color_text, length_color))
+        uint32_t skip_len = strlen("led ");
+        char *color_text = command + skip_len;
+        uint32_t length_color = length - skip_len;
+        if (equals_to("red", color_text, length_color))
         {
             color_handle_result(write_handler, color_text, length_color, LED_COLOR_RED);
         }
-        else if (compare_command("green", color_text, length_color))
+        else if (equals_to("green", color_text, length_color))
         {
             color_handle_result(write_handler, color_text, length_color, LED_COLOR_GREEN);
         }
-        else if (compare_command("blue", color_text, length_color))
+        else if (equals_to("blue", color_text, length_color))
         {
             color_handle_result(write_handler, color_text, length_color, LED_COLOR_BLUE);
         }
-        else if (compare_command("off", color_text, length_color))
+        else if (equals_to("off", color_text, length_color))
         {
             color_handle_result(write_handler, color_text, length_color, LED_COLOR_OFF);
         }
-        else if (compare_command("white", color_text, length_color))
+        else if (equals_to("white", color_text, length_color))
         {
             int rc = led_color_set_rgb(30, 30, 30); // example RGB values
             if (rc < 0)
