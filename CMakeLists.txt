@@ -15,9 +15,7 @@ target_include_directories(app PRIVATE
 set(APP_SOURCES 
     src/main.c
     src/drivers/led_color.c
-    src/console/uart_console.c
-    src/console/cli_handler.c
-    src/console/uart_console_thread.c
+    src/console/cli.c
 )
 
 target_sources(app PRIVATE ${APP_SOURCES})

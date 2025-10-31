@@ -1,5 +1,5 @@
 #include <zephyr/kernel.h>
-#include "threads_config.h"
+//#include "threads_config.h"
 #include "drivers/led_color.h"
 #include "log/logger.h"
 LOG_MODULE_REGISTER(main);
