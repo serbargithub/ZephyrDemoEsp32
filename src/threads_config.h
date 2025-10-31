@@ -1,5 +1,5 @@
 #ifndef H_THREADS_CONFIG_H_
-#define H_THREADS_H_
+#define H_THREADS_CONFIG_H_
 
 #include <zephyr/kernel.h>
 #include "uart_console_thread.h"
