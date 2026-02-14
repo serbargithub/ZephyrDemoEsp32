@@ -20,5 +20,5 @@ jobs:
 
       - name: Build
         run: |
-          west build -b esp32c3_devkitm
+          west build -b esp32c3_devkitm app
 
