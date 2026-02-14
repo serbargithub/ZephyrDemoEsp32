@@ -25,15 +25,6 @@ jobs:
           app-path: app
           toolchains: riscv64-zephyr-elf
 
-      - name: Init west
-        run: |
-          west init -l .
-          west update
-
-      - name: Install Zephyr Python requirements
-        run: |
-          pip install -r zephyr/scripts/requirements.txt
-
       - name: Build
         run: |
           west build -b esp32c3_devkitm app
