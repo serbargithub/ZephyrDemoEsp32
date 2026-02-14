@@ -17,8 +17,8 @@ BraceWrapping:
   AfterEnum: false
   AfterFunction: true
   AfterStruct: false
-  AfterIf: true
-  AfterElse: true
+  AfterControlStatement: Always
+  BeforeElse: true
   SplitEmptyFunction: false
 
 # Keep short statements on multiple lines
