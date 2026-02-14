@@ -1,0 +1,32 @@
+name: Zephyr CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: zephyrproject-rtos/action-zephyr-setup@v1
+
+      - name: Debug
+        run: |
+          ls zephyr/scripts
+
+      - name: Init west
+        run: |
+          west init -l .
+          west update
+
+      - name: Install Zephyr Python requirements
+        run: |
+          pip install -r zephyr/scripts/requirements.txt
+
+      - name: Build
+        run: |
+          west build -b native_posix app
+
