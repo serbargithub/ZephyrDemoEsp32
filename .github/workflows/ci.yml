@@ -15,10 +15,10 @@ jobs:
       - name: Setup Zephyr project
         uses: zephyrproject-rtos/action-zephyr-setup@v1
         with:
-          app-path: .
+          app-path: app
           toolchains: riscv64-zephyr-elf
 
       - name: Build
         run: |
-          west build -b esp32c3_devkitm app
+          west build -b esp32c3_devkitm
 
