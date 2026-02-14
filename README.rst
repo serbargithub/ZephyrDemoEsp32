@@ -22,6 +22,16 @@ Requirements
 - Zephyr SDK and west installed and configured
 - Board: esp32c3_devkitm (target used in examples)
 
+Continuous Integration
+----------------------
+This project uses GitHub Actions for automated builds and code quality checks:
+
+- **Build verification**: Compiles the project for esp32c3_devkitm
+- **Code formatting**: Validates code style using clang-format-14
+- **Pull request checks**: Runs on all PRs and pushes
+
+See ``.github/workflows/ci.yml`` for the complete CI configuration.
+
 Files of interest
 -----------------
 - boards/esp32c3_devkitm.overlay — device tree overlay for the LED strip & console pinctrl
