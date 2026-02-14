@@ -2,8 +2,8 @@
 #ifndef H_LED_COLOR_
 #define H_LED_COLOR_
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 enum led_color {
     LED_COLOR_RED,
