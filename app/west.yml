@@ -11,4 +11,4 @@ manifest:
       revision: v4.3.0
 
   self:
-    path: app
+    path: .
