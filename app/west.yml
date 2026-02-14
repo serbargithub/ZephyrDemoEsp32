@@ -9,6 +9,7 @@ manifest:
     - name: zephyr
       remote: zephyrproject
       revision: v4.3.0
+      import: true
 
   self:
     path: .
