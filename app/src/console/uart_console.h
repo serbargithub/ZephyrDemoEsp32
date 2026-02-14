@@ -8,6 +8,4 @@ int uart_console_start(void);
 void uart_console_task_handler(void);
 void uart_console_stop(void);
 
-
 #endif // H_UART_CONSOLE_
-

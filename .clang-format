@@ -1,0 +1,51 @@
+# clang-format configuration for ZephyrDemoEsp32
+---
+BasedOnStyle: LLVM
+
+# Indentation
+IndentWidth: 4
+UseTab: Never           # Use spaces only
+TabWidth: 4
+ContinuationIndentWidth: 8
+
+# Line width
+ColumnLimit: 100
+
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterEnum: false
+  AfterFunction: true
+  AfterStruct: false
+  AfterControlStatement: Always
+  BeforeElse: true
+  SplitEmptyFunction: false
+
+# Keep short statements on multiple lines
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+
+# Alignment
+AlignConsecutiveMacros: None
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
+AlignEscapedNewlines: DontAlign
+
+# Spaces
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatementsExceptControlMacros
+SpacesInParentheses: false
+
+# Includes sorting
+SortIncludes: true
+IncludeBlocks: Preserve
+
+# Pointer alignment
+PointerAlignment: Right
+
+# Comments
+ReflowComments: true

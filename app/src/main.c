@@ -1,7 +1,7 @@
-#include <zephyr/kernel.h>
-#include "threads_config.h"
 #include "drivers/led_color.h"
 #include "log/logger.h"
+#include "threads_config.h"
+#include <zephyr/kernel.h>
 LOG_MODULE_REGISTER(main);
 
 int main(void)

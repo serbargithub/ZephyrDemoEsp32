@@ -2,19 +2,19 @@
 #ifndef H_LED_COLOR_
 #define H_LED_COLOR_
 
-
+#include <stdbool.h>
 #include <stdint.h>
 
 enum led_color {
-	LED_COLOR_RED,
-	LED_COLOR_GREEN,
-	LED_COLOR_BLUE,
-	LED_COLOR_OFF
+    LED_COLOR_RED,
+    LED_COLOR_GREEN,
+    LED_COLOR_BLUE,
+    LED_COLOR_OFF
 };
 
 enum led_blink {
-	LED_BLINK_ON,
-	LED_BLINK_OFF
+    LED_BLINK_ON,
+    LED_BLINK_OFF
 };
 
 int led_color_set_color(enum led_color color);
