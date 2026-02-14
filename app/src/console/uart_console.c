@@ -11,11 +11,11 @@ LOG_MODULE_REGISTER(uart_console);
 static const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);
 
 /* buffers */
-#define RX_BUF_SIZE      256
-#define TX_BUF_SIZE      128
-#define LINE_BUF_SIZE    128
+#define RX_BUF_SIZE 256
+#define TX_BUF_SIZE 128
+#define LINE_BUF_SIZE 128
 #define TX_RX_TIMEOUT_MS 10
-#define LINE_STACK_SIZE  5
+#define LINE_STACK_SIZE 5
 
 static uint8_t rx_buf[RX_BUF_SIZE];
 static uint8_t tx_buf[TX_BUF_SIZE];

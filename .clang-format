@@ -30,15 +30,15 @@ AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 
 # Alignment
-AlignConsecutiveMacros: AcrossComments
+AlignConsecutiveMacros: None
 AlignConsecutiveAssignments: None
 AlignConsecutiveDeclarations: None
+AlignEscapedNewlines: DontAlign
 
 # Spaces
 SpaceAfterCStyleCast: false
 SpaceBeforeParens: ControlStatementsExceptControlMacros
 SpacesInParentheses: false
-Cpp11BracedListStyle: false
 
 # Includes sorting
 SortIncludes: true

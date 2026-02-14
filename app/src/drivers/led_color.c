@@ -5,7 +5,7 @@
 #include "../log/logger.h"
 LOG_MODULE_REGISTER(led_color);
 
-#define STRIP_NODE            DT_ALIAS(led_strip)
+#define STRIP_NODE DT_ALIAS(led_strip)
 #define CONFIG_LED_BRIGHTNESS 64
 
 static struct led_rgb pixel;
@@ -15,7 +15,9 @@ static const struct device *const strip = DEVICE_DT_GET(STRIP_NODE);
 K_MUTEX_DEFINE(led_rgb_mutex);
 static volatile bool is_blink_indicator_allowed = false;
 
+// clang-format off
 #define RGB(_r, _g, _b) {.r = (_r), .g = (_g), .b = (_b)}
+// clang-format on
 
 static const struct led_rgb colors[] = {
         RGB(CONFIG_LED_BRIGHTNESS, 0x00, 0x00), /* red */
