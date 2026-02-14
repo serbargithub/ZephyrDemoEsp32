@@ -23,7 +23,7 @@ jobs:
         uses: zephyrproject-rtos/action-zephyr-setup@v1
         with:
           app-path: app
-          toolchains: xtensa-espressif_esp32
+          toolchains: riscv64-zephyr-elf
 
       - name: Init west
         run: |
@@ -36,5 +36,5 @@ jobs:
 
       - name: Build
         run: |
-          west build app
+          west build -b esp32c3_devkitm app
 
