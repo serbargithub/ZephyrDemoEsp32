@@ -38,6 +38,7 @@ AlignConsecutiveDeclarations: None
 SpaceAfterCStyleCast: false
 SpaceBeforeParens: ControlStatementsExceptControlMacros
 SpacesInParentheses: false
+Cpp11BracedListStyle: false
 
 # Includes sorting
 SortIncludes: true
