@@ -12,29 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install west
-        run: |
-          pip3 install west
-
-      - name: Initialize west workspace
-        run: |
-          west init -l .
-          west update
-
-      - name: Install Zephyr SDK
+      - name: Setup Zephyr project
         uses: zephyrproject-rtos/action-zephyr-setup@v1
         with:
           app-path: .
           toolchains: riscv64-zephyr-elf
-
-      - name: Install Python dependencies
-        run: |
-          pip3 install -r zephyr/scripts/requirements-base.txt
 
       - name: Build
         run: |
