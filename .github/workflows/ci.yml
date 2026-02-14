@@ -9,13 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: app
 
-      - uses: zephyrproject-rtos/action-zephyr-setup@v1
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
 
-      - name: Debug
-        run: |
-          ls zephyr/scripts
+      - name: Setup Zephyr project
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          app-path: app
+          toolchains: xtensa-espressif_esp32
 
       - name: Init west
         run: |
@@ -28,5 +36,5 @@ jobs:
 
       - name: Build
         run: |
-          west build -b native_posix app
+          west build app
 
